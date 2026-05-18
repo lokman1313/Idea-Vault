@@ -15,6 +15,8 @@ import {
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Button } from '@heroui/react'
 import ThemeToggole from './ThemeToggole'
+import { authClient } from "@/lib/auth-client"
+import { p } from "framer-motion/client"
 
 const navigation = [
   { name: 'Home', href: '/' },
@@ -30,6 +32,9 @@ function classNames(...classes) {
 
 export default function NavbarPage() {
   const pathname = usePathname() 
+
+  const { data: session , isPending } = authClient.useSession()
+    const userData = session?.user;
 
   return (
     <Disclosure as="nav" className="relative bg-gray-800/50 after:pointer-events-none after:absolute after:inset-x-0 after:bottom-0 after:h-px after:bg-white/10">
@@ -90,7 +95,7 @@ export default function NavbarPage() {
                 <span className="absolute -inset-1.5" />
                 <span className="sr-only">Open user menu</span>
                 <Image
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                  src={userData?.image || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"}
                   alt="User"
                   width={32}
                   height={32}
@@ -102,23 +107,42 @@ export default function NavbarPage() {
                 transition
                 className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-800 py-1 outline -outline-offset-1 outline-white/10 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
               >
-                <MenuItem>
-                  <Link href="/profile" className="block px-4 py-2 text-sm text-gray-300 data-focus:bg-white/5 data-focus:outline-hidden">
-                    Your Profile
-                  </Link>
-                </MenuItem>
-                 <div className="flex flex-col gap">
-                <MenuItem>
-                <Link href={'/login'}><Button >Login</Button></Link> 
-                </MenuItem>
-                <MenuItem>
-                <Link href={'/signUp'}><Button >Sign Up</Button></Link> 
-                </MenuItem>
-                 </div>
+                
+                 <MenuItems className="flex flex-col items-center gap-2">
+                  {isPending ? (
+                    <p>Loading...</p>
+                  ) : userData ? (
+                    <>
+                    <MenuItem >
+                  <Link href={"/profile"}><Button >Profile</Button></Link>
+                    </MenuItem>
+                    <MenuItem>
+                      <Button
+                      className="w-fit"
+                        variant="danger"
+                        onClick={async () => await authClient.signOut()}
+                      >
+                        Logout
+                      </Button>
+                    </MenuItem>
+                    </>
+                  ) : (
+                    <>
+                      <MenuItem>
+                        <Link href="/login">
+                          <Button>Login</Button>
+                        </Link>
+                      </MenuItem>
+                
+                      <MenuItem>
+                        <Link href="/signUp">
+                          <Button>Sign Up</Button>
+                        </Link>
+                      </MenuItem>
+                    </>
+                  )}
+             </MenuItems>
 
-                {/* <MenuItem>
-                  <Button variant='danger'>Logout</Button>
-                </MenuItem> */}
               </MenuItems>
             </Menu>
           </div>

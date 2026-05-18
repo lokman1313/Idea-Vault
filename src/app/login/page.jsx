@@ -1,14 +1,30 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import {Button, Description, FieldError, Form, Input, Label, Separator, TextField} from "@heroui/react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { FaCheck, FaGoogle } from "react-icons/fa6";
 
 const LoginPage = () => {
-    const onSubmit = (e) => {
+    const onSubmit =async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const userData = Object.fromEntries(formData.entries())
+    const {name,email,password,image}=userData
+        const { data, error } = await authClient.signIn.email({
+         
+        email:email, 
+        password:password,
+        
+        callbackURL: "/",
+    });
+        if (data) {
+      redirect("/")
+      toast.success("Account created successfully");
+    } else {
+      toast.error(error?.message || "Something went wrong");
+    }
   };
     return (
         <div className="container mx-auto flex items-center justify-center my-10">
