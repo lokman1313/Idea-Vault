@@ -7,6 +7,11 @@ import { redirect } from "next/navigation";
 import { FaCheck, FaGoogle } from "react-icons/fa6";
 
 const LoginPage = () => {
+    const signIn = async () => {
+        const data = await authClient.signIn.social({
+        provider: "google",
+      });
+       };
     const onSubmit =async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -89,7 +94,8 @@ const LoginPage = () => {
             </Form>
             <Separator />
 
-            <Button variant="secondary" className="w-full flex items-center justify-center gap-2 my-3">
+            <Button variant="secondary" className="w-full flex items-center justify-center gap-2 my-3"
+            onClick={signIn}>
               <FaGoogle />
               Continue with Google
             </Button>
