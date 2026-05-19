@@ -1,45 +1,52 @@
 "use client"
 import { authClient } from "@/lib/auth-client";
 import { FieldError, Input, Label, TextField ,Select, ListBox, TextArea, Button} from "@heroui/react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 
 
 const AddIdeasPage = () => {
-  const { data: session, isPending } = authClient.useSession();
-    const userData = session?.user;
-    const handelForm = async(e) => {
-         e.preventDefault();
-         const formData = new FormData(e.currentTarget);
-         const projectData = Object.fromEntries(formData.entries());
-         const allData = {
-          userEmail :userData.email,
-          project: projectData.project,
-          audience: projectData.audience,
-          category: projectData.category,
-          price: projectData.price,
-          tags: projectData.tags,
-          problem: projectData.problem,
-          solution: projectData.solution,
-          shortDis: projectData.shortDis,
-          imageUrl: projectData.imageUrl,
-          description: projectData.description
-         }
-         
-         const res = await fetch(`http://localhost:4000/ideas`,{
-          method : "POST",
-          headers : {
-            "Content-Type": "application/json"
-          },
-          body : JSON.stringify(allData)
-         })
-         const data = await res.json()
-         if(data){
-          toast.success("Your idea is successfully added")
-          redirect("/add-ideas")
-         }
-         return data
-       };
+  const router = useRouter()
+  const { data: session } = authClient.useSession();
+  
+    const handelForm = async (e) => {
+  e.preventDefault();
+
+  if (!session?.user) {
+    toast.error("You are not logged in");
+    return;
+  }
+
+  const formData = new FormData(e.currentTarget);
+  const projectData = Object.fromEntries(formData.entries());
+
+  const allData = {
+    userEmail: session.user.email,
+    project: projectData.project,
+    audience: projectData.audience,
+    category: projectData.category,
+    price: projectData.price,
+    tags: projectData.tags,
+    problem: projectData.problem,
+    solution: projectData.solution,
+    shortDis: projectData.shortDis,
+    imageUrl: projectData.imageUrl,
+    description: projectData.description,
+  };
+
+  const res = await fetch("http://localhost:4000/ideas", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(allData),
+  });
+
+  const data = await res.json();
+
+  if (data) {
+    toast.success("Your idea is successfully added");
+    router.refresh();
+  }
+};
     return (
         <div className="md:w-3/5 mx-auto">
            <h1 className="text-4xl font-bold text-blue-400 my-3">Add Your Unic Ideas :</h1> 
