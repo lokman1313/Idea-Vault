@@ -10,7 +10,7 @@ const MotionCard = motion(Card);
 const IdeaCard = ({ idea }) => {
   const {
     _id,
-    destinationName,
+    project,
     category,
     audience,
     price,
@@ -42,7 +42,7 @@ const IdeaCard = ({ idea }) => {
         >
           <Image
             src={imageUrl || "/placeholder.png"}
-            alt={destinationName || "idea"}
+            alt={project || "idea"}
             width={200}
             height={200}
             className="h-full w-full object-cover"
@@ -58,7 +58,7 @@ const IdeaCard = ({ idea }) => {
       <div className="p-4 space-y-3">
         <Card.Header className="gap-1 pr-8">
           <Card.Title className="text-lg font-bold line-clamp-2">
-            {destinationName}
+            {project}
           </Card.Title>
 
           <Card.Description className="text-sm text-default-500 line-clamp-2">

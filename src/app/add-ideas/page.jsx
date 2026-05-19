@@ -1,22 +1,37 @@
 "use client"
+import { authClient } from "@/lib/auth-client";
 import { FieldError, Input, Label, TextField ,Select, ListBox, TextArea, Button} from "@heroui/react";
 import { redirect } from "next/navigation";
 import toast from "react-hot-toast";
 
 
 const AddIdeasPage = () => {
+  const { data: session, isPending } = authClient.useSession();
+    const userData = session?.user;
     const handelForm = async(e) => {
          e.preventDefault();
          const formData = new FormData(e.currentTarget);
-         const userData = Object.fromEntries(formData.entries());
-       
+         const projectData = Object.fromEntries(formData.entries());
+         const allData = {
+          userEmail :userData.email,
+          project: projectData.project,
+          audience: projectData.audience,
+          category: projectData.category,
+          price: projectData.price,
+          tags: projectData.tags,
+          problem: projectData.problem,
+          solution: projectData.solution,
+          shortDis: projectData.shortDis,
+          imageUrl: projectData.imageUrl,
+          description: projectData.description
+         }
          
          const res = await fetch(`http://localhost:4000/ideas`,{
           method : "POST",
           headers : {
             "Content-Type": "application/json"
           },
-          body : JSON.stringify(userData)
+          body : JSON.stringify(allData)
          })
          const data = await res.json()
          if(data){
@@ -35,7 +50,7 @@ const AddIdeasPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Idea Title */}
               <div className="md:col-span-2">
-                <TextField name="destinationName" isRequired>
+                <TextField name="project" isRequired>
                   <Label>Idea Title</Label>
                   <Input placeholder="AI Study Planner App" className="rounded-2xl" />
                   <FieldError />
