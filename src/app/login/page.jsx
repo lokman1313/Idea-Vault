@@ -3,31 +3,34 @@
 import { authClient } from "@/lib/auth-client";
 import {Button, Description, FieldError, Form, Input, Label, Separator, TextField} from "@heroui/react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { FaCheck, FaGoogle } from "react-icons/fa6";
 
 const LoginPage = () => {
-    const signIn = async () => {
-        const data = await authClient.signIn.social({
-        provider: "google",
-      });
-       };
-    const onSubmit =async (e) => {
+const redirectPath = useSearchParams().get("redirect") || "/"
+
+  const signIn = async () => {
+    const { error } = await authClient.signIn.social({
+      provider: "google",
+      callbackURL: redirectPath
+    });
+    if (error) {
+      toast.error(error?.message || "Something went wrong");
+    }
+  };
+
+  const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const userData = Object.fromEntries(formData.entries())
-    const {name,email,password,image}=userData
-        const { data, error } = await authClient.signIn.email({
-         
-        email:email, 
-        password:password,
-        
-        callbackURL: "/",
+    const { email, password } = Object.fromEntries(formData.entries());
+
+    const { error } = await authClient.signIn.email({
+      email,
+      password,
+      callbackURL: redirectPath,
     });
-        if (data) {
-      redirect("/")
-      toast.success("Account created successfully");
-    } else {
+
+    if (error) {
       toast.error(error?.message || "Something went wrong");
     }
   };
@@ -91,6 +94,7 @@ const LoginPage = () => {
           Reset
         </Button>
       </div>
+      <Link href={"/forgetPass"}><p className="text-gray-500">Forget Password ?</p></Link>
             </Form>
             <Separator />
 

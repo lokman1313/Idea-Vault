@@ -3,13 +3,17 @@
 import { authClient } from "@/lib/auth-client";
 import {Button, Description, FieldError, Form, Input, Label, Separator, TextField} from "@heroui/react";
 import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
 import toast from "react-hot-toast";
 import { FaCheck, FaGoogle } from "react-icons/fa6";
 
 const SignInPage = () => {
+    const router =useRouter()
+  const redirectPath = useSearchParams().get("redirect") || "/"
     const signIn = async () => {
     const data = await authClient.signIn.social({
     provider: "google",
+    callbackURL: redirectPath,
   });
    };
     const onSubmit = async (e) => {
@@ -25,8 +29,8 @@ const SignInPage = () => {
     callbackURL: "/",
 });
     if (data) {
-  console.log(data);
   toast.success("Account created successfully");
+  router.push(redirectPath);
 } else {
   toast.error(error?.message || "Something went wrong");
 }
