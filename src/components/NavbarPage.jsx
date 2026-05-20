@@ -43,7 +43,7 @@ export default function NavbarPage() {
         <div className="relative flex h-16 items-center justify-between">
           
           {/* Mobile menu button */}
-          <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <div className="flex items-center sm:hidden">
             <DisclosureButton className="group relative inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-white/5 hover:text-white focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500">
               <span className="absolute -inset-0.5" />
               <span className="sr-only">Open main menu</span>
@@ -53,7 +53,7 @@ export default function NavbarPage() {
           </div>
 
           {/* Logo + Navigation */}
-            <div className="absolute left-1/2 -translate-x-1/2 sm:static sm:translate-x-0 flex items-center md:mr-4">
+            <div className="flex items-center">
              <Link href="/">
                <Image
                  src={logo}
@@ -90,63 +90,63 @@ export default function NavbarPage() {
 
           {/* Right Side */}
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <ThemeToggole></ThemeToggole>
-            <Menu as="div" className="relative ml-3">
-              <MenuButton className="relative flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
-                <span className="absolute -inset-1.5" />
-                <span className="sr-only">Open user menu</span>
-                <Image
-                  src={userData?.image || "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"}
-                  alt="User"
-                  width={32}
-                  height={32}
-                  className="size-8 rounded-full bg-gray-800 outline -outline-offset-1 outline-white/10"
-                />
-              </MenuButton>
+  <ThemeToggole />
+{isPending ? (
+        <p className="px-4 py-2 text-sm text-gray-300">Loading...</p>
+      ) : userData ? 
+        <>
+  <Menu as="div" className="relative ml-3">
+    <MenuButton className="relative flex rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+      <span className="absolute -inset-1.5" />
+      <span className="sr-only">Open user menu</span>
 
-              <MenuItems
-                transition
-                className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-800 py-1 outline -outline-offset-1 outline-white/10 transition data-closed:scale-95 data-closed:transform data-closed:opacity-0 data-enter:duration-100 data-enter:ease-out data-leave:duration-75 data-leave:ease-in"
-              >
-                
-                 <MenuItems className="flex flex-col items-center gap-2">
-                  {isPending ? (
-                    <p>Loading...</p>
-                  ) : userData ? (
-                    <>
-                    <MenuItem >
-                  <Link href={"/profile"}><Button >Profile</Button></Link>
-                    </MenuItem>
-                    <MenuItem>
-                      <Button
-                      className="w-fit"
-                        variant="danger"
-                        onClick={async () => await authClient.signOut()}
-                      >
-                        Logout
-                      </Button>
-                    </MenuItem>
-                    </>
-                  ) : (
-                    <>
-                      <MenuItem>
-                        <Link href="/login">
-                          <Button>Login</Button>
-                        </Link>
-                      </MenuItem>
-                
-                      <MenuItem>
-                        <Link href="/signUp">
-                          <Button>Sign Up</Button>
-                        </Link>
-                      </MenuItem>
-                    </>
-                  )}
-             </MenuItems>
+      <Image
+        src={
+          userData?.image ||
+          "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e"
+        }
+        alt="User"
+        width={32}
+        height={32}
+        className="size-8 rounded-full bg-gray-800 outline -outline-offset-1 outline-white/10"
+      />
+    </MenuButton>
 
-              </MenuItems>
-            </Menu>
-          </div>
+    <MenuItems className="absolute right-0 z-10 mt-2 w-44 origin-top-right rounded-xl bg-gray-900/95 backdrop-blur-md p-2 shadow-lg ring-1 ring-white/10">
+  
+  <MenuItem>
+    <Link href="/profile" className="block">
+      <Button className="w-full justify-start rounded-lg px-3 py-2 text-left text-sm hover:bg-white/10">
+        Profile
+      </Button>
+    </Link>
+  </MenuItem>
+
+  <div className="my-1 h-px bg-white/10" />
+
+  <MenuItem>
+    <Button
+      className="w-full justify-start rounded-lg px-3 py-2 text-left text-sm text-red-400 hover:bg-red-500/10"
+      variant="ghost"
+      onClick={() => authClient.signOut()}
+    >
+      Logout
+    </Button>
+  </MenuItem>
+
+</MenuItems>
+  </Menu>
+        </> : 
+        <div className="space-x-2 ml-2">
+          <Link href="/login">
+              <Button >Login</Button>
+            </Link>
+            <Link href="/signUp">
+              <Button >Sign Up</Button>
+            </Link>
+        </div>
+      }
+</div>
         </div>
       </div>
 

@@ -1,6 +1,6 @@
 "use client";
 
-import IdeaCard from "@/components/IdeaCard";
+import MyIdeaCard from "@/components/MyIdeaCard";
 import { authClient } from "@/lib/auth-client";
 import { useEffect, useState } from "react";
 
@@ -48,7 +48,7 @@ const MyIdeasPage = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
           {ideas.map((idea) => (
-            <IdeaCard key={idea._id} idea={idea} />
+            <MyIdeaCard key={idea._id} idea={idea} />
           ))}
         </div>
       )}

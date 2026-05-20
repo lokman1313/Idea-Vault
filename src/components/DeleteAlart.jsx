@@ -32,7 +32,7 @@ const DeleteAlart = ({handelDelete}) => {
                 Cancel
               </Button>
               <Button onClick={()=>handelDelete()} slot="close" variant="danger">
-                Delete Project
+                Delete Comment
               </Button>
             </AlertDialog.Footer>
           </AlertDialog.Dialog>

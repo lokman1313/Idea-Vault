@@ -4,6 +4,10 @@ import TypeComment from "@/components/TypeComment";
 import { Button, ScrollShadow} from "@heroui/react";
 import Link from "next/link";
 
+export const metadata = {
+  title: "Idea | Deteils",
+  description: "Welcome to my website",
+}
 
 const IdeaDeteisPage =async ({params}) => {
     const {id}=await params;
