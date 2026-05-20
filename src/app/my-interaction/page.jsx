@@ -10,26 +10,31 @@ const MyIntractionPage = () => {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  const fetchComments = async () => {
     if (!session?.user?.email) return;
 
-    const fetchComments = async () => {
-      try {
-        setLoading(true);
+    try {
+      setLoading(true);
+     const {data : token} =await authClient.token()
 
-        const res = await fetch(
-          `http://localhost:4000/comments/user/${session.user.email}`
-        );
+      const res = await fetch(
+        `https://ideavult-backend.vercel.app/comments/user/${session.user.email}`,{
+          headers : {
+            authorization : `Bearer ${token?.token}`
+          }
+        }
+      );
 
-        const data = await res.json();
-        setComments(data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
+      const data = await res.json();
+      setComments(data);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchComments();
   }, [session?.user?.email]);
 
@@ -52,7 +57,11 @@ const MyIntractionPage = () => {
           </div>
         ) : (
           comments.map((comment) => (
-            <MyComment key={comment._id} comment={comment} />
+            <MyComment
+              key={comment._id}
+              comment={comment}
+              fetchComments={fetchComments}
+            />
           ))
         )}
       </div>

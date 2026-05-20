@@ -6,13 +6,17 @@ import { useEffect, useState } from "react";
 
 const MyIdeasPage = () => {
   const { data: session } = authClient.useSession();
-  
   const [ideas, setIdeas] = useState([]);
   const [loading, setLoading] = useState(true);
-const fetchIdeas = async () => {
+  const fetchIdeas = async () => {
+  const {data : token} =await authClient.token()
       try {
         const res = await fetch(
-          `http://localhost:4000/ideas/user/${session.user.email}`,{cache: "no-store"}
+          `https://ideavult-backend.vercel.app/ideas/user/${session.user.email}`,{
+            headers : {
+            authorization : `Bearer ${token?.token}`
+         }
+          }
         );
 
         const data = await res.json();

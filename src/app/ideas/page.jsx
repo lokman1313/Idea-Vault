@@ -9,7 +9,7 @@ const IdeasPage =() => {
   const [data, setData] = useState([]);
 
   const fetchFilter = async(searchValue = "", categoryValue = "") =>{
-      const res = await fetch(`http://localhost:4000/ideas?search=${searchValue}&category=${categoryValue}`)
+      const res = await fetch(`https://ideavult-backend.vercel.app/ideas?search=${searchValue}&category=${categoryValue}`)
       const result = await res.json()
       setData(result)
   }

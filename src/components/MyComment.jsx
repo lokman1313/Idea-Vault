@@ -5,14 +5,14 @@ import toast from "react-hot-toast";
 import DeleteAlart from "./DeleteAlart";
 import EditeComment from "./EditeComment";
 
-const MyComment = ({comment}) => {
+const MyComment = ({comment,fetchComments}) => {
     const router = useRouter()
     const handelDelete = async()=>{
-        const res = await fetch(`http://localhost:4000/comments/${comment._id}`,{
+        const res = await fetch(`https://ideavult-backend.vercel.app/comments/${comment._id}`,{
             method : "DELETE",
         })
          const data = await res.json();
-
+     fetchComments()
      if (data) {
       toast.success("Comment deleted");
       router.refresh();
@@ -48,8 +48,8 @@ const MyComment = ({comment}) => {
        
        </div>
         <div className="flex gap-5">
-            <EditeComment comment={comment}></EditeComment>
-            <DeleteAlart handelDelete={handelDelete}></DeleteAlart>
+            <EditeComment comment={comment} fetchComments={fetchComments}></EditeComment>
+            <DeleteAlart handelDelete={handelDelete} ></DeleteAlart>
         </div>
        </div>
     );

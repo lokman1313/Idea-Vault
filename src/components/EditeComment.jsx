@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { CiEdit } from "react-icons/ci";
 import toast from "react-hot-toast";
 
-const EditComment = ({ comment }) => {
+const EditComment = ({ comment ,fetchComments}) => {
   const router = useRouter();
 
   const handleEdit = async (e) => {
@@ -23,7 +23,7 @@ const EditComment = ({ comment }) => {
 
     try {
       const res = await fetch(
-        `http://localhost:4000/comments/${comment._id}`,
+        `https://ideavult-backend.vercel.app/comments/${comment._id}`,
         {
           method: "PATCH",
           headers: {
@@ -34,7 +34,7 @@ const EditComment = ({ comment }) => {
       );
 
       const data = await res.json();
-
+      fetchComments()
       if (data.modifiedCount > 0) {
         toast.success("Comment updated successfully");
         router.refresh();

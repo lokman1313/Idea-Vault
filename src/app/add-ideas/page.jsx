@@ -33,10 +33,13 @@ const AddIdeasPage = () => {
     imageUrl: projectData.imageUrl,
     description: projectData.description,
   };
-
-  const res = await fetch("http://localhost:4000/ideas", {
+  const {data : token} =await authClient.token()
+  
+  const res = await fetch("https://ideavult-backend.vercel.app/ideas", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json",
+      authorization : `Bearer ${token?.token}`
+     },
     body: JSON.stringify(allData),
   });
 

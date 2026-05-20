@@ -34,10 +34,12 @@ const TypeComment = ({id}) => {
             email : userData.email,
             comment:commentData.bio
         }
-        const res = await fetch(`http://localhost:4000/comments`,{
+        const {data : token} =await authClient.token()
+        const res = await fetch(`https://ideavult-backend.vercel.app/comments`,{
             method : "POST",
             headers : {
-                "Content-Type" : "application/json"
+                "Content-Type" : "application/json",
+                authorization : `Bearer ${token?.token}`
             },
             body : JSON.stringify(allData)
         })

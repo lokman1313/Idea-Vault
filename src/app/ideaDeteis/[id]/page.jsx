@@ -1,7 +1,9 @@
 import DeteilsComment from "@/components/DeteilsComment";
 import DeteisCard from "@/components/DeteisCard";
 import TypeComment from "@/components/TypeComment";
+import { auth } from "@/lib/auth";
 import { Button, ScrollShadow} from "@heroui/react";
+import { headers } from "next/headers";
 import Link from "next/link";
 
 export const metadata = {
@@ -11,10 +13,18 @@ export const metadata = {
 
 const IdeaDeteisPage =async ({params}) => {
     const {id}=await params;
-    const res = await fetch(`http://localhost:4000/ideas/${id}`)
+    
+    const token = await auth.api.getToken({
+      headers : await headers()
+    })
+    const res = await fetch(`https://ideavult-backend.vercel.app/ideas/${id}`,{
+      headers : {
+        authorization : `Bearer ${token?.token}`
+      }
+    })
     const idea = await res.json()
     
-    const comRes =await fetch(`http://localhost:4000/comments/${id}`)
+    const comRes =await fetch(`https://ideavult-backend.vercel.app/comments/${id}`)
     const comments = await comRes.json()
 
     return (
