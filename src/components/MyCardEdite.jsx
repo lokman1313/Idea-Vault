@@ -25,7 +25,7 @@ const categories = [
   "Others",
 ];
 
-const MyCardEdite = ({idea}) => {
+const MyCardEdite = ({idea,refetch}) => {
     const router = useRouter()
     const {
     _id,
@@ -52,6 +52,7 @@ const MyCardEdite = ({idea}) => {
         body: JSON.stringify(projectData)
     })
     const data = await res.json()
+    refetch()
     if(data){
         toast.success("Edite Successfully");
         router.refresh();

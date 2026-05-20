@@ -9,11 +9,7 @@ const MyIdeasPage = () => {
   
   const [ideas, setIdeas] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    if (!session?.user?.email) return;
-
-    const fetchIdeas = async () => {
+const fetchIdeas = async () => {
       try {
         const res = await fetch(
           `http://localhost:4000/ideas/user/${session.user.email}`,{cache: "no-store"}
@@ -27,6 +23,10 @@ const MyIdeasPage = () => {
         setLoading(false);
       }
     };
+  useEffect(() => {
+    if (!session?.user?.email) return;
+
+    
 
     fetchIdeas();
   }, [session]);
@@ -48,7 +48,7 @@ const MyIdeasPage = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
           {ideas.map((idea) => (
-            <MyIdeaCard key={idea._id} idea={idea} />
+            <MyIdeaCard key={idea._id} refetch={fetchIdeas} idea={idea} />
           ))}
         </div>
       )}

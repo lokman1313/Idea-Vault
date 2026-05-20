@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { FaRegTrashCan } from "react-icons/fa6";
 
-const MyCardDelete = ({ id }) => {
+const MyCardDelete = ({ id ,refetch }) => {
   const router = useRouter();
 
   const handleDelete = async () => {
@@ -14,7 +14,7 @@ const MyCardDelete = ({ id }) => {
     });
 
     const data = await res.json();
-
+    refetch()
     if (data.deletedCount > 0) {
       toast.success("Deleted successfully");
       router.refresh();

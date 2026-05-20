@@ -9,7 +9,7 @@ import MyCardDelete from "./MyCardDelete";
 
 const MotionCard = motion(Card);
 
-const MyIdeaCard = ({idea}) => {
+const MyIdeaCard = ({idea , refetch}) => {
     const {
     _id,
     project,
@@ -35,8 +35,8 @@ const MyIdeaCard = ({idea}) => {
       className="max-w-sm w-full overflow-hidden shadow-md hover:shadow-xl"
     >
         <div className="flex justify-between">
-            <MyCardEdite idea={idea}></MyCardEdite>
-            <MyCardDelete id ={_id}></MyCardDelete>
+            <MyCardEdite idea={idea} refetch={refetch}></MyCardEdite>
+            <MyCardDelete id ={_id} refetch={refetch}></MyCardDelete>
         </div>
       {/* Image */}
       <div className="relative h-48 w-full overflow-hidden">
