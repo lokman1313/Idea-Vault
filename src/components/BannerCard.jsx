@@ -16,80 +16,58 @@ const IdeaCard = ({ idea }) => {
     price,
     shortDis,
     imageUrl,
-    tags,
   } = idea || {};
-
-  const tagList =
-    tags?.split(",").map((t) => t.trim()).filter(Boolean) || [];
 
   return (
     <MotionCard
       whileHover={{ y: -6, scale: 1.015 }}
       transition={{ type: "tween", duration: 0.15 }}
-      className="w-[300px] h-[420px] overflow-hidden shadow-md hover:shadow-xl flex flex-col"
+      className="w-[300px] h-[420px] overflow-hidden shadow-md hover:shadow-xl flex flex-col rounded-2xl"
     >
       {/* IMAGE */}
-      <div className="relative h-40 w-full overflow-hidden">
-        <motion.div whileHover={{ scale: 1.06 }}>
+      <div className="relative w-full h-44 overflow-hidden">
+        <motion.div whileHover={{ scale: 1.05 }}>
           <Image
             src={imageUrl || "/placeholder.png"}
             alt={project || "idea"}
-            width={300}
-            height={160}
-            className="h-full w-full object-cover"
+            fill
+            className="object-cover"
           />
         </motion.div>
 
-        <span className="absolute top-2 left-2 bg-black/70 text-yellow-400 text-xs px-2 py-1 rounded uppercase">
+        <span className="absolute top-2 left-2 bg-black/70 text-white text-xs px-2 py-1 rounded-md uppercase tracking-wide">
           {category}
         </span>
       </div>
 
       {/* CONTENT */}
       <div className="p-4 flex flex-col flex-1 justify-between">
-        
-        {/* Top */}
-        <div className="space-y-2">
-          <h2 className="text-lg font-bold line-clamp-2">
+        {/* TOP */}
+        <div className="space-y-3">
+          <h2 className="text-lg font-bold leading-snug line-clamp-2">
             {project}
           </h2>
 
-          <p className="text-sm text-gray-500 line-clamp-2">
+          <p className="text-sm text-gray-500 line-clamp-3">
             {shortDis}
           </p>
 
-          <div className="flex justify-between text-sm mt-2">
+          <div className="flex justify-between text-sm pt-2 border-t border-gray-100">
             <div>
               <p className="text-xs text-gray-400">Audience</p>
               <p className="font-semibold capitalize">{audience}</p>
             </div>
 
-            <div>
+            <div className="text-right">
               <p className="text-xs text-gray-400">Price</p>
               <p className="font-semibold">${price}</p>
             </div>
           </div>
-
-          {/* Tags */}
-          {tagList.length > 0 ? (
-            <div className="flex flex-wrap gap-1">
-              {tagList.slice(0, 3).map((tag, i) => (
-                <span
-                  key={i}
-                  className="text-xs bg-blue-100 text-blue-600 px-2 py-1 rounded"
-                >
-                  #{tag}
-                </span>
-              ))}
-            </div>
-          ) : (
-            <span className="text-xs text-gray-400"># No tags</span>
-          )}
         </div>
 
-        {/* Button bottom fixed */}
+        {/* BUTTON */}
         <Link href={`/ideaDeteis/${_id}`}>
-          <Button color="primary" fullWidth className="font-bold mt-3">
+          <Button color="primary" fullWidth className="mt-4 font-semibold">
             View Details →
           </Button>
         </Link>
