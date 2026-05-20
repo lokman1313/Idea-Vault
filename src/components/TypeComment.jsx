@@ -35,7 +35,7 @@ const TypeComment = ({id}) => {
             comment:commentData.bio
         }
         const {data : token} =await authClient.token()
-        const res = await fetch(`https://ideavult-backend.vercel.app/comments`,{
+        const res = await fetch(`https://idea-vult-backend.vercel.app/comments`,{
             method : "POST",
             headers : {
                 "Content-Type" : "application/json",

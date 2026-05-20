@@ -17,14 +17,14 @@ const IdeaDeteisPage =async ({params}) => {
     const token = await auth.api.getToken({
       headers : await headers()
     })
-    const res = await fetch(`https://ideavult-backend.vercel.app/ideas/${id}`,{
+    const res = await fetch(`https://idea-vult-backend.vercel.app/ideas/${id}`,{
       headers : {
         authorization : `Bearer ${token?.token}`
       }
     })
     const idea = await res.json()
     
-    const comRes =await fetch(`https://ideavult-backend.vercel.app/comments/${id}`)
+    const comRes =await fetch(`https://idea-vult-backend.vercel.app/comments/${id}`)
     const comments = await comRes.json()
 
     return (

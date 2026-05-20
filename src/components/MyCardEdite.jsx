@@ -44,7 +44,7 @@ const MyCardEdite = ({idea,refetch}) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const projectData = Object.fromEntries(formData.entries());
-    const res = await fetch(`https://ideavult-backend.vercel.app/ideas/${_id}`,{
+    const res = await fetch(`https://idea-vult-backend.vercel.app/ideas/${_id}`,{
         method : "PATCH",
         headers : {
             "Content-Type" : "application/json"

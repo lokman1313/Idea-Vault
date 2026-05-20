@@ -23,7 +23,7 @@ const EditComment = ({ comment ,fetchComments}) => {
 
     try {
       const res = await fetch(
-        `https://ideavult-backend.vercel.app/comments/${comment._id}`,
+        `https://idea-vult-backend.vercel.app/comments/${comment._id}`,
         {
           method: "PATCH",
           headers: {

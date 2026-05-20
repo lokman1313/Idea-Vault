@@ -9,7 +9,7 @@ const MyCardDelete = ({ id ,refetch }) => {
   const router = useRouter();
 
   const handleDelete = async () => {
-    const res = await fetch(`https://ideavult-backend.vercel.app/ideas/${id}`, {
+    const res = await fetch(`https://idea-vult-backend.vercel.app/ideas/${id}`, {
       method: "DELETE",
     });
 

@@ -35,7 +35,7 @@ const AddIdeasPage = () => {
   };
   const {data : token} =await authClient.token()
   
-  const res = await fetch("https://ideavult-backend.vercel.app/ideas", {
+  const res = await fetch("https://idea-vult-backend.vercel.app/ideas", {
     method: "POST",
     headers: { "Content-Type": "application/json",
       authorization : `Bearer ${token?.token}`

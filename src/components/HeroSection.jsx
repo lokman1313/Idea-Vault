@@ -9,7 +9,7 @@ const MarqueeIdeas = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("https://ideavult-backend.vercel.app/hero");
+      const res = await fetch("https://idea-vult-backend.vercel.app/hero");
       const data = await res.json();
       setIdeas(data);
     };

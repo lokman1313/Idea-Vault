@@ -18,7 +18,7 @@ const MyIntractionPage = () => {
      const {data : token} =await authClient.token()
 
       const res = await fetch(
-        `https://ideavult-backend.vercel.app/comments/user/${session.user.email}`,{
+        `https://idea-vult-backend.vercel.app/comments/user/${session.user.email}`,{
           headers : {
             authorization : `Bearer ${token?.token}`
           }

@@ -12,7 +12,7 @@ const MyIdeasPage = () => {
   const {data : token} =await authClient.token()
       try {
         const res = await fetch(
-          `https://ideavult-backend.vercel.app/ideas/user/${session.user.email}`,{
+          `https://idea-vult-backend.vercel.app/ideas/user/${session.user.email}`,{
             headers : {
             authorization : `Bearer ${token?.token}`
          }
