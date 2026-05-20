@@ -12,6 +12,8 @@ import {
   TextArea,
   TextField,
 } from "@heroui/react";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 import { CiEdit } from "react-icons/ci";
 
 const categories = [
@@ -24,6 +26,7 @@ const categories = [
 ];
 
 const MyCardEdite = ({idea}) => {
+    const router = useRouter()
     const {
     _id,
     project,
@@ -41,7 +44,18 @@ const MyCardEdite = ({idea}) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const projectData = Object.fromEntries(formData.entries());
-    const res = await fetch(`http://localhost:4000/ideas/${_id}`,{})
+    const res = await fetch(`http://localhost:4000/ideas/${_id}`,{
+        method : "PATCH",
+        headers : {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify(projectData)
+    })
+    const data = await res.json()
+    if(data){
+        toast.success("Edite Successfully");
+        router.refresh();
+    }
   };
 
   return (
@@ -197,6 +211,7 @@ const MyCardEdite = ({idea}) => {
 
                   <Button
                     type="submit"
+                    slot="close"
                     variant="outline"
                     className="w-full rounded-none bg-cyan-500 text-white"
                   >

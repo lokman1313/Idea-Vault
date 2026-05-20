@@ -16,7 +16,7 @@ const MyIdeasPage = () => {
     const fetchIdeas = async () => {
       try {
         const res = await fetch(
-          `http://localhost:4000/ideas/user/${session.user.email}`
+          `http://localhost:4000/ideas/user/${session.user.email}`,{cache: "no-store"}
         );
 
         const data = await res.json();
