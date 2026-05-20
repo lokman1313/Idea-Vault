@@ -30,9 +30,12 @@ const MyCardEdite = ({idea}) => {
     category,
     audience,
     price,
+    problem,
     shortDis,
+    solution,
     imageUrl,
     tags,
+    description
   } = idea
   const handelForm = async (e) => {
     e.preventDefault();
@@ -93,6 +96,7 @@ const MyCardEdite = ({idea}) => {
 
                     <Select
                       name="category"
+                      defaultValue={category}
                       placeholder="Select category"
                       className="w-full"
                     >
@@ -119,7 +123,7 @@ const MyCardEdite = ({idea}) => {
                       </Select.Popover>
                     </Select>
 
-                    <TextField name="price" type="number">
+                    <TextField name="price" type="number" defaultValue={price}>
                       <Label>Estimated Budget</Label>
                       <Input
                         type="number"
@@ -129,7 +133,7 @@ const MyCardEdite = ({idea}) => {
                       <FieldError />
                     </TextField>
 
-                    <TextField name="tags">
+                    <TextField name="tags" defaultValue={tags}>
                       <Label>Tags</Label>
                       <Input
                         placeholder="AI, Productivity, Students"
@@ -138,7 +142,7 @@ const MyCardEdite = ({idea}) => {
                       <FieldError />
                     </TextField>
 
-                    <TextField name="problem">
+                    <TextField name="problem" defaultValue={problem}>
                       <Label>Problem Statement</Label>
                       <Input
                         placeholder="Students fail to manage study time effectively."
@@ -147,7 +151,7 @@ const MyCardEdite = ({idea}) => {
                       <FieldError />
                     </TextField>
 
-                    <TextField name="solution">
+                    <TextField name="solution" defaultValue={solution}>
                       <Label>Proposed Solution</Label>
                       <Input
                         placeholder="AI-generated smart schedules that adapt to performance"
@@ -157,7 +161,7 @@ const MyCardEdite = ({idea}) => {
                     </TextField>
 
                     <div className="md:col-span-2">
-                      <TextField name="shortDis">
+                      <TextField name="shortDis" defaultValue={shortDis}>
                         <Label>Short Description</Label>
                         <Input
                           placeholder="Describe your idea in 1 or 2 lines."
@@ -168,7 +172,7 @@ const MyCardEdite = ({idea}) => {
                     </div>
 
                     <div className="md:col-span-2">
-                      <TextField name="imageUrl">
+                      <TextField name="imageUrl" defaultValue={imageUrl}>
                         <Label>Image URL</Label>
                         <Input
                           type="url"
@@ -180,7 +184,7 @@ const MyCardEdite = ({idea}) => {
                     </div>
 
                     <div className="md:col-span-2">
-                      <TextField name="description">
+                      <TextField name="description" defaultValue={description}>
                         <Label>Description</Label>
                         <TextArea
                           placeholder="Describe the idea in details..."
