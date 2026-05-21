@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 🚀 IdeaVault - Client Side
 
-## Getting Started
+IdeaVault is a startup idea sharing platform where users can discover innovative ideas, share their own startup concepts, and engage with the community through comments and discussions.
 
-First, run the development server:
+## 🌐 Live Website
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🔗 https://idea-vault-vert.vercel.app/
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📌 Features
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- User Authentication with Email/Password and Google Login
+- Protected Routes using JWT Authentication
+- Add New Startup Ideas
+- Update and Delete Own Ideas
+- Browse All Startup Ideas
+- View Detailed Idea Information
+- Comment System (Add, Edit, Delete)
+- Search Ideas by Title
+- Filter Ideas by Category
+- Trending Ideas Section
+- Dark / Light Theme Toggle
+- Responsive Design for Mobile, Tablet, and Desktop
+- Dynamic Page Titles
+- Custom 404 Page
+- Toast Notifications for User Actions
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ Technologies Used
 
-## Learn More
+### Frontend
 
-To learn more about Next.js, take a look at the following resources:
+- Next.js
+- React
+- Tailwind CSS
+- HeroUI
+- Framer Motion
+- React Hot Toast
+- React Icons
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 📂 Main Pages
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Public Pages
 
-## Deploy on Vercel
+- Home
+- Ideas
+- Login
+- Register
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Private Pages
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Add Idea
+- Idea Details
+- My Ideas
+- My Interactions
+- Profile Management
+
+## 📱 Responsive Design
+
+- Mobile
+- Tablet
+- Desktop
+
+## 👨‍💻 Developer
+
+Lokman Hossen
